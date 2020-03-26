@@ -1,0 +1,19 @@
+﻿@model IEnumerable<WebApp01Introduction.Models.Categories>
+
+<h2>Categories</h2>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        @await Html.PartialAsync("Header", Model.First())
+        <tbody>
+            @foreach (var category in @Model)
+            {
+                @await Html.PartialAsync("IndexDetails", category)
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>There are no categories</h3>
+}

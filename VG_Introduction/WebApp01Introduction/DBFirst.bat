@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=EPBYBREW0095\SQLEXPRESS;Integrated Security=True;Database=Northwind;Trusted_Connection=True;MultipleActiveResultSets=true" Microsoft.EntityFrameworkCore.SqlServer -o Models --context-dir Data -c NorthwindDbContext -d -f

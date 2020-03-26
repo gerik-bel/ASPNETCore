@@ -1,0 +1,17 @@
+﻿@model WebApp01Introduction.Models.Products
+
+<thead class="thead-dark">
+    <tr>
+        <th scope="col">@Html.DisplayNameFor(model => Model.ProductId)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.ProductName)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.Category.CategoryName)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.Discontinued)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.QuantityPerUnit)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.ReorderLevel)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.Supplier.CompanyName)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.UnitPrice)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.UnitsInStock)</th>
+        <th scope="col">@Html.DisplayNameFor(model => Model.UnitsOnOrder)</th>
+        <th>More</th>
+    </tr>
+</thead>

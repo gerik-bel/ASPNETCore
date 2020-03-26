@@ -1,0 +1,58 @@
+﻿@model WebApp01Introduction.ViewModels.ProductsEditModel
+<style type="text/css">
+    .int_row {
+        width: 200px;
+    }
+</style>
+
+<h3>@ViewData["Message"]</h3>
+<form method="post">
+    <input asp-for="ProductId" type="hidden" />
+    <div>
+        <label asp-for="ProductName" class="label label-default int_row"></label>
+        <input asp-for="ProductName" class="int_row" />
+        <span asp-validation-for="ProductName" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="Categories" class="label label-default int_row"></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" class="int_row"></select>
+        <span asp-validation-for="CategoryId" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="Discontinued" class="label label-default int_row"></label>
+        <input asp-for="Discontinued" class="int_row" />
+        <span asp-validation-for="Discontinued" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="QuantityPerUnit" class="label label-default int_row"></label>
+        <input asp-for="QuantityPerUnit" class="int_row" />
+        <span asp-validation-for="QuantityPerUnit" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="ReorderLevel" class="label label-default int_row"></label>
+        <input asp-for="ReorderLevel" class="int_row" />
+        <span asp-validation-for="ReorderLevel" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="Suppliers" class="label label-default int_row"></label>
+        <select asp-for="SupplierId" asp-items="Model.Suppliers" class="int_row"></select>
+        <span asp-validation-for="SupplierId" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="UnitPrice" class="label label-default int_row"></label>
+        <input asp-for="UnitPrice" class="int_row" />
+        <span asp-validation-for="UnitPrice" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="UnitsInStock" class="label label-default int_row"></label>
+        <input asp-for="UnitsInStock" class="int_row" />
+        <span asp-validation-for="UnitsInStock" class="label label-warning"></span>
+    </div>
+    <div>
+        <label asp-for="UnitsOnOrder" class="label label-default int_row"></label>
+        <input asp-for="UnitsOnOrder" class="int_row" />
+        <span asp-validation-for="UnitsOnOrder" class="label label-warning"></span>
+    </div>
+    <input class="btn btn-outline-primary" type="submit" name="save" value="Save" />
+    <input class="btn btn-outline-primary" type="button" value="Cancel" onclick="location.href = '@Url.Action("Index","Products")';" />
+</form>

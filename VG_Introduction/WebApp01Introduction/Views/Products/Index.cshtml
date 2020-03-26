@@ -1,0 +1,20 @@
+﻿@model IEnumerable<WebApp01Introduction.Models.Products>
+
+<h2>Products</h2>
+<a class="nav-link" asp-area="" asp-controller="Products" asp-action="Create">Add new</a>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        @await Html.PartialAsync("Header", Model.First())
+        <tbody>
+            @foreach (var product in @Model)
+            {
+                @await Html.PartialAsync("IndexDetails", product)
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>There are no products</h3>
+}

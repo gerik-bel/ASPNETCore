@@ -1,0 +1,33 @@
+﻿@model WebApp01Introduction.Models.Products
+
+<h3>@ViewData["Message"]</h3>
+<table class="table table-striped">
+    @await Html.PartialAsync("Header", Model)
+    <tbody>
+        <tr>
+            <td>@Model.ProductId</td>
+            <td>@Model.ProductName</td>
+            <td>
+                @if (Model.Category != null)
+                {
+                    @Model.Category.CategoryName;
+                }
+            </td>
+            <td>@Model.Discontinued</td>
+            <td>@Model.QuantityPerUnit</td>
+            <td>@Model.ReorderLevel</td>
+            <td>
+                @if (Model.Supplier != null)
+                {
+                    @Model.Supplier.CompanyName;
+                }
+            </td>
+            <td>@Model.UnitPrice</td>
+            <td>@Model.UnitsInStock</td>
+            <td>@Model.UnitsOnOrder</td>
+            <td>
+                <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
