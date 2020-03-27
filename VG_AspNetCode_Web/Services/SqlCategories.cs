@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VG_AspNetCore_Web.Data;
 using VG_AspNetCore_Web.Models;
 
@@ -13,14 +15,14 @@ namespace VG_AspNetCore_Web.Services
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Categories> GetAll()
+        public async Task<IEnumerable<Categories>> GetAllAsync()
         {
-            return _dbContext.Categories.OrderBy(p => p.CategoryId);
+            return await _dbContext.Categories.OrderBy(p => p.CategoryId).ToListAsync();
         }
 
-        public Categories Get(int id)
+        public async Task<Categories> GetAsync(int id)
         {
-            return _dbContext.Categories.FirstOrDefault(p => p.CategoryId == id);
+            return await _dbContext.Categories.FirstOrDefaultAsync(p => p.CategoryId == id);
         }
     }
 }

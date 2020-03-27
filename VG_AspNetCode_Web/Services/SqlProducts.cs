@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VG_AspNetCore_Web.Data;
 using VG_AspNetCore_Web.Models;
 
@@ -11,6 +13,8 @@ namespace VG_AspNetCore_Web.Services
     {
         private readonly NorthwindDbContext _dbContext;
         private readonly int _maxShownDisplayCount;
+        private const int None = 0;
+        private readonly SelectListItem _emptyItem = new SelectListItem("None", None.ToString(), true);
 
         public SqlProductsService(NorthwindDbContext dbContext)
         {
@@ -22,43 +26,49 @@ namespace VG_AspNetCore_Web.Services
             _maxShownDisplayCount = options.Value.MaxShownDisplayCount;
         }
 
-        public IEnumerable<Products> GetAll()
+        public async Task<IEnumerable<Products>> GetAllAsync()
         {
             IQueryable<Products> products = _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).OrderBy(p => p.ProductId);
             if (_maxShownDisplayCount != 0)
             {
                 products = products.Take(_maxShownDisplayCount);
             }
-            return products.AsEnumerable();
+            return await products.ToListAsync();
         }
 
-        public Products Get(int id)
+        public async Task<List<SelectListItem>> GetSuppliersAsync()
         {
-            return _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).FirstOrDefault(p => p.ProductId == id);
+            var suppliers = await _dbContext.Suppliers.OrderBy(p => p.SupplierId)
+                .Select(p => new SelectListItem(p.CompanyName, p.SupplierId.ToString())).ToListAsync();
+            suppliers.Add(_emptyItem);
+            return suppliers;
         }
 
-        public Products Add(Products product)
+        public async Task<List<SelectListItem>> GetCategoriesAsync()
         {
-            _dbContext.Products.Add(product);
-            _dbContext.SaveChanges();
+            var categories = await _dbContext.Categories.OrderBy(p => p.CategoryId)
+                .Select(p => new SelectListItem(p.CategoryName, p.CategoryId.ToString())).ToListAsync();
+            categories.Add(_emptyItem);
+            return categories;
+        }
+
+        public async Task<Products> GetAsync(int id)
+        {
+            return await _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).FirstOrDefaultAsync(p => p.ProductId == id);
+        }
+
+        public async Task<Products> AddAsync(Products product)
+        {
+            await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
             return product;
         }
 
-        public Products Update(Products product)
+        public async Task<Products> UpdateAsync(Products product)
         {
             _dbContext.Products.Attach(product).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return product;
-        }
-
-        public IEnumerable<Categories> GetAllCategories()
-        {
-            return _dbContext.Categories.OrderBy(p => p.CategoryId);
-        }
-
-        public IEnumerable<Suppliers> GetAllSuppliers()
-        {
-            return _dbContext.Suppliers.OrderBy(p => p.SupplierId);
         }
     }
 }

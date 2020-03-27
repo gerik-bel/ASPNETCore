@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using VG_AspNetCore_Web.Models;
 using VG_AspNetCore_Web.Services;
 using VG_AspNetCore_Web.ViewModels;
@@ -11,22 +9,22 @@ namespace VG_AspNetCore_Web.Controllers
     public class ProductsController : Controller
     {
         private const int None = 0;
-        private readonly SelectListItem _emptyItem = new SelectListItem("None", None.ToString(), true);
         private readonly IProductsService _productsServiceService;
+
         public ProductsController(IProductsService productsServiceService)
         {
             _productsServiceService = productsServiceService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = _productsServiceService.GetAll();
+            var products = await _productsServiceService.GetAllAsync();
             return View(products);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = _productsServiceService.Get(id);
+            var model = await _productsServiceService.GetAsync(id);
             if (model == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -36,9 +34,9 @@ namespace VG_AspNetCore_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var products = _productsServiceService.Get(id);
+            var products = await _productsServiceService.GetAsync(id);
             if (products == null)
             {
                 return RedirectToAction("Index", "Products");
@@ -55,72 +53,56 @@ namespace VG_AspNetCore_Web.Controllers
                 ReorderLevel = products.ReorderLevel,
                 UnitsInStock = products.UnitsInStock,
                 UnitPrice = products.UnitPrice,
-                Categories = GetCategories(),
-                Suppliers = GetSuppliers()
+                Categories = await _productsServiceService.GetCategoriesAsync(),
+                Suppliers = await _productsServiceService.GetSuppliersAsync()
             };
             ViewData["Message"] = "Editing the product";
             return View(pem);
         }
 
-        private List<SelectListItem> GetSuppliers()
-        {
-            var suppliers = _productsServiceService.GetAllSuppliers()
-                .Select(p => new SelectListItem(p.CompanyName, p.SupplierId.ToString())).ToList();
-            suppliers.Add(_emptyItem);
-            return suppliers;
-        }
-
-        private List<SelectListItem> GetCategories()
-        {
-            var categories = _productsServiceService.GetAllCategories()
-                .Select(p => new SelectListItem(p.CategoryName, p.CategoryId.ToString())).ToList();
-            categories.Add(_emptyItem);
-            return categories;
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductsEditModel model)
+        public async Task<IActionResult> Edit(ProductsEditModel model)
         {
             if (ModelState.IsValid)
             {
                 var products = ToProducts(model);
-                products = _productsServiceService.Update(products);
+                products = await _productsServiceService.UpdateAsync(products);
                 return RedirectToAction(nameof(Details), new { id = products.ProductId });
             }
             ViewData["Message"] = "Editing the product";
-            model.Categories = GetCategories();
-            model.Suppliers = GetSuppliers();
+            model.Categories = await _productsServiceService.GetCategoriesAsync();
+            model.Suppliers = await _productsServiceService.GetSuppliersAsync();
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["Message"] = "Creating the product";
             ProductsEditModel pem = new ProductsEditModel
             {
                 CategoryId = null,
                 SupplierId = null,
-                Categories = GetCategories(),
-                Suppliers = GetSuppliers()
+                Categories = await _productsServiceService.GetCategoriesAsync(),
+                Suppliers = await _productsServiceService.GetSuppliersAsync()
             };
             return View(nameof(Edit), pem);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductsEditModel model)
+        public async Task<IActionResult> Create(ProductsEditModel model)
         {
             if (ModelState.IsValid)
             {
                 var products = ToProducts(model);
-                products = _productsServiceService.Add(products);
+                products = await _productsServiceService.AddAsync(products);
                 return RedirectToAction(nameof(Details), new { id = products.ProductId });
             }
             ViewData["Message"] = "Creating the product";
-            model.Categories = GetCategories();
-            model.Suppliers = GetSuppliers();
+            model.Categories = await _productsServiceService.GetCategoriesAsync();
+            model.Suppliers = await _productsServiceService.GetSuppliersAsync();
             return View(nameof(Edit), model);
         }
 
