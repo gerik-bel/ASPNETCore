@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApp01Introduction.Models
+namespace VG_AspNetCore_Web.Models
 {
     [Table("Order Details")]
     public partial class OrderDetails

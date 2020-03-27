@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WebApp01Introduction.Models;
+using VG_AspNetCore_Web.Models;
 
-namespace WebApp01Introduction.Services
+namespace VG_AspNetCore_Web.Services
 {
     public interface IProductsService
     {

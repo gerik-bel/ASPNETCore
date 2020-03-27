@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Diagnostics;
-using WebApp01Introduction.Models;
-using WebApp01Introduction.Services;
+using VG_AspNetCore_Web.Models;
+using VG_AspNetCore_Web.Services;
 
-namespace WebApp01Introduction.Controllers
+namespace VG_AspNetCore_Web.Controllers
 {
     public class HomeController : Controller
     {

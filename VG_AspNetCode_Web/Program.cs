@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WebApp01Introduction
+namespace VG_AspNetCore_Web
 {
     public class Program
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApp01Introduction.Models
+namespace VG_AspNetCore_Web.Models
 {
     public partial class Orders
     {

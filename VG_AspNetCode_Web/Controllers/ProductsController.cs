@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using WebApp01Introduction.Models;
-using WebApp01Introduction.Services;
-using WebApp01Introduction.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using VG_AspNetCore_Web.Models;
+using VG_AspNetCore_Web.Services;
+using VG_AspNetCore_Web.ViewModels;
 
-namespace WebApp01Introduction.Controllers
+namespace VG_AspNetCore_Web.Controllers
 {
     public class ProductsController : Controller
     {

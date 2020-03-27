@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.FileProviders;
-using System.IO;
 
-namespace WebApp01Introduction.Middleware
+namespace VG_AspNetCore_Web.Middleware
 {
     public static class ApplicationBuilderExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp01Introduction.Services;
+using VG_AspNetCore_Web.Services;
 
-namespace WebApp01Introduction.Controllers
+namespace VG_AspNetCore_Web.Controllers
 {
     public class CategoriesController : Controller
     {

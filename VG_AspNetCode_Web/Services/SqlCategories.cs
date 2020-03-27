@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebApp01Introduction.Data;
-using WebApp01Introduction.Models;
+using VG_AspNetCore_Web.Data;
+using VG_AspNetCore_Web.Models;
 
-namespace WebApp01Introduction.Services
+namespace VG_AspNetCore_Web.Services
 {
     public class SqlCategories : ICategoriesService
     {

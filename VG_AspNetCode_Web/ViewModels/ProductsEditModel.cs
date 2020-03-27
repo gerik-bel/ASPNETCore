@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApp01Introduction.ViewModels
+namespace VG_AspNetCore_Web.ViewModels
 {
     public class ProductsEditModel
     {

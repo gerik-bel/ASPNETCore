@@ -1,4 +1,4 @@
-namespace WebApp01Introduction.Models
+namespace VG_AspNetCore_Web.Models
 {
     public class ErrorViewModel
     {
