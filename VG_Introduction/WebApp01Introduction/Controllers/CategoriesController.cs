@@ -5,8 +5,8 @@ namespace WebApp01Introduction.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ICategories _categoriesService;
-        public CategoriesController(ICategories categoriesService)
+        private readonly ICategoriesService _categoriesService;
+        public CategoriesController(ICategoriesService categoriesService)
         {
             _categoriesService = categoriesService;
         }

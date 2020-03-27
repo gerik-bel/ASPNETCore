@@ -31,8 +31,9 @@ namespace WebApp01Introduction
         {
             Log.Information("ConfigureServices called");
             services.AddDbContext<NorthwindDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IProducts, SqlProducts>().Configure<SqlProductsOptions>(configureOptions => configureOptions.MaxShownDisplayCount = GetMaxShownDisplayCount());
-            services.AddScoped<ICategories, SqlCategories>();
+            services.AddScoped<IProductsService, SqlProductsService>().Configure<SqlProductsOptions>(configureOptions => configureOptions.MaxShownDisplayCount = GetMaxShownDisplayCount());
+            services.AddScoped<ICategoriesService, SqlCategories>();
+            services.AddScoped<IHomeService, DefaultHomeService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

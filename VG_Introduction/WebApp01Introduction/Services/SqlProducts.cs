@@ -7,17 +7,17 @@ using WebApp01Introduction.Models;
 
 namespace WebApp01Introduction.Services
 {
-    public class SqlProducts : IProducts
+    public class SqlProductsService : IProductsService
     {
         private readonly NorthwindDbContext _dbContext;
         private readonly int _maxShownDisplayCount;
 
-        public SqlProducts(NorthwindDbContext dbContext)
+        public SqlProductsService(NorthwindDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public SqlProducts(NorthwindDbContext dbContext, IOptions<SqlProductsOptions> options) : this(dbContext)
+        public SqlProductsService(NorthwindDbContext dbContext, IOptions<SqlProductsOptions> options) : this(dbContext)
         {
             _maxShownDisplayCount = options.Value.MaxShownDisplayCount;
         }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp01Introduction", "WebApp01Introduction\WebApp01Introduction.csproj", "{8510F3E6-D279-4A51-8889-424DACD577AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VG_AspNetCore_Web", "WebApp01Introduction\VG_AspNetCore_Web.csproj", "{8510F3E6-D279-4A51-8889-424DACD577AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

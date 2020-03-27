@@ -12,21 +12,21 @@ namespace WebApp01Introduction.Controllers
     {
         private const int None = 0;
         private readonly SelectListItem _emptyItem = new SelectListItem("None", None.ToString(), true);
-        private readonly IProducts _productsService;
-        public ProductsController(IProducts productsService)
+        private readonly IProductsService _productsServiceService;
+        public ProductsController(IProductsService productsServiceService)
         {
-            _productsService = productsService;
+            _productsServiceService = productsServiceService;
         }
 
         public IActionResult Index()
         {
-            var products = _productsService.GetAll();
+            var products = _productsServiceService.GetAll();
             return View(products);
         }
 
         public IActionResult Details(int id)
         {
-            var model = _productsService.Get(id);
+            var model = _productsServiceService.Get(id);
             if (model == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -38,7 +38,7 @@ namespace WebApp01Introduction.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var products = _productsService.Get(id);
+            var products = _productsServiceService.Get(id);
             if (products == null)
             {
                 return RedirectToAction("Index", "Products");
@@ -64,7 +64,7 @@ namespace WebApp01Introduction.Controllers
 
         private List<SelectListItem> GetSuppliers()
         {
-            var suppliers = _productsService.GetAllSuppliers()
+            var suppliers = _productsServiceService.GetAllSuppliers()
                 .Select(p => new SelectListItem(p.CompanyName, p.SupplierId.ToString())).ToList();
             suppliers.Add(_emptyItem);
             return suppliers;
@@ -72,7 +72,7 @@ namespace WebApp01Introduction.Controllers
 
         private List<SelectListItem> GetCategories()
         {
-            var categories = _productsService.GetAllCategories()
+            var categories = _productsServiceService.GetAllCategories()
                 .Select(p => new SelectListItem(p.CategoryName, p.CategoryId.ToString())).ToList();
             categories.Add(_emptyItem);
             return categories;
@@ -85,7 +85,7 @@ namespace WebApp01Introduction.Controllers
             if (ModelState.IsValid)
             {
                 var products = ToProducts(model);
-                products = _productsService.Update(products);
+                products = _productsServiceService.Update(products);
                 return RedirectToAction(nameof(Details), new { id = products.ProductId });
             }
             ViewData["Message"] = "Editing the product";
@@ -115,7 +115,7 @@ namespace WebApp01Introduction.Controllers
             if (ModelState.IsValid)
             {
                 var products = ToProducts(model);
-                products = _productsService.Add(products);
+                products = _productsServiceService.Add(products);
                 return RedirectToAction(nameof(Details), new { id = products.ProductId });
             }
             ViewData["Message"] = "Creating the product";

@@ -5,7 +5,7 @@ using WebApp01Introduction.Models;
 
 namespace WebApp01Introduction.Services
 {
-    public class SqlCategories : ICategories
+    public class SqlCategories : ICategoriesService
     {
         private readonly NorthwindDbContext _dbContext;
         public SqlCategories(NorthwindDbContext dbContext)

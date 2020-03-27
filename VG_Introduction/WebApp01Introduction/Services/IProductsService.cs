@@ -3,7 +3,7 @@ using WebApp01Introduction.Models;
 
 namespace WebApp01Introduction.Services
 {
-    public interface IProducts
+    public interface IProductsService
     {
         IEnumerable<Products> GetAll();
         Products Get(int id);

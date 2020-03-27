@@ -3,26 +3,34 @@ using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Diagnostics;
 using WebApp01Introduction.Models;
+using WebApp01Introduction.Services;
 
 namespace WebApp01Introduction.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHomeService _homeService;
+
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService;
+        }
+
         public IActionResult Index()
         {
-            ViewData["Message"] = "Welcome to Test ASP.NET Core application";
+            ViewData["Message"] = _homeService.GetIndexMessage();
             return View();
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Test ASP.NET Core application";
+            ViewData["Message"] = _homeService.GetAboutMessage();
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "In case of any questions, feel free to contact directly";
+            ViewData["Message"] = _homeService.GetContactMessage();
             return View();
         }
 
