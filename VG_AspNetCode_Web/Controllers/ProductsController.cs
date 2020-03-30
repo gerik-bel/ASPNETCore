@@ -94,6 +94,10 @@ namespace VG_AspNetCore_Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductsEditModel model)
         {
+            if (model == null)
+            {
+                return BadRequest(ModelState);
+            }
             if (ModelState.IsValid)
             {
                 var products = ToProducts(model);
