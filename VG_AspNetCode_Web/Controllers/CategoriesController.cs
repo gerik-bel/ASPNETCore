@@ -24,6 +24,8 @@ namespace VG_AspNetCore_Web.Controllers
         }
 
         [HttpGet]
+        [Route("images/{id}")]
+        [Route("[controller]/[action]/{id}")]
         public async Task<IActionResult> Image(int id)
         {
             var image = await _categoriesService.GetImageAsync(id);
