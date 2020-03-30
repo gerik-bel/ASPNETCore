@@ -1,0 +1,37 @@
+﻿@model VG_AspNetCore_Web.ViewModels.CategoriesEditModel
+
+@{
+    ViewBag.Title = "Image upload";
+}
+<form asp-action="ImageUpload" asp-controller="Categories" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => Model.CategoryId)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => Model.CategoryName)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => Model.Description)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => Model.Picture)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.CategoryId
+                        <input asp-for="@Model.CategoryId" type="hidden" />
+                    </td>
+                    <td>@Model.CategoryName</td>
+                    <td>@Model.Description</td>
+                    <td><img src="@Url.Action("Image", "Categories", new { id = @Model.CategoryId })" /></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="custom-file">
+            <input name="File" type="file" class="custom-file-label" asp-for="File"/>
+        </div>
+        <span asp-validation-for="File" class="text-danger"></span>
+    </div>
+    <input class="btn btn-outline-primary" type="submit" name="save" value="Save" />
+    <input class="btn btn-outline-primary" type="button" value="Cancel" onclick="location.href = '@Url.Action("Index","Categories")';" />
+</form>

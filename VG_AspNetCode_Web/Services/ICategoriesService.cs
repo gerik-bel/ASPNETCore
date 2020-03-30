@@ -8,5 +8,7 @@ namespace VG_AspNetCore_Web.Services
     {
         Task<IEnumerable<Categories>> GetAllAsync();
         Task<Categories> GetAsync(int id);
+        Task<byte[]> GetImageAsync(int id);
+        Task UpdateImageAsync(int id, byte[] image);
     }
 }

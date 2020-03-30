@@ -4,4 +4,6 @@
     <td>@Model.CategoryId</td>
     <td>@Model.CategoryName</td>
     <td>@Model.Description</td>
+    <td><a class="btn btn-outline-primary" asp-action="Image" asp-route-id="@Model.CategoryId">ViewImage</a></td>
+    <td><a class="btn btn-outline-primary" asp-action="ImageUpload" asp-route-id="@Model.CategoryId">UploadImage</a></td>
 </tr>
