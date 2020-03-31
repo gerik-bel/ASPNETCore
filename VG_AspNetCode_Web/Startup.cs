@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.IO;
+using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Web.Data;
 using VG_AspNetCore_Web.Middleware;
 using VG_AspNetCore_Web.Middleware.CacheImages;
@@ -20,7 +21,6 @@ namespace VG_AspNetCore_Web
         public Startup(IHostingEnvironment env, IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
                 .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "Logs", "VG_AspNetCore_Web-{Date}.txt"))
                 .CreateLogger();
             Log.Information($"App Startup called, Application location: {env.ContentRootPath}");

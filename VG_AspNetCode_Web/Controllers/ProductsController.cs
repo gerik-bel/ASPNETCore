@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Web.Models;
 using VG_AspNetCore_Web.Services;
 using VG_AspNetCore_Web.ViewModels;
 
 namespace VG_AspNetCore_Web.Controllers
 {
+    [LogAction(true)]
     public class ProductsController : Controller
     {
         private const int None = 0;

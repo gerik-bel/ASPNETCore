@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
+using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Web.Services;
 using VG_AspNetCore_Web.ViewModels;
 
@@ -17,6 +18,7 @@ namespace VG_AspNetCore_Web.Controllers
             _categoriesService = categoriesService;
         }
 
+        [LogAction(true)]
         public async Task<IActionResult> Index()
         {
             var categories = await _categoriesService.GetAllAsync();
@@ -33,6 +35,7 @@ namespace VG_AspNetCore_Web.Controllers
         }
 
         [HttpGet]
+        [LogAction(false)]
         public async Task<IActionResult> ImageUpload(int id)
         {
             var categories = await _categoriesService.GetAsync(id);
