@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,13 +11,13 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
     public class CacheImages
     {
         private readonly CacheImageOptions _options;
-        private readonly Dictionary<string, CacheItem> _cacheDictionary;
+        private readonly ConcurrentDictionary<string, CacheItem> _cacheDictionary;
         private Timer _timer;
 
         public CacheImages(CacheImageOptions options)
         {
             _options = options;
-            _cacheDictionary = new Dictionary<string, CacheItem>();
+            _cacheDictionary = new ConcurrentDictionary<string, CacheItem>();
             DirectoryInfo info = new DirectoryInfo(_options.CachePath);
             if (info.Exists)
             {
@@ -26,11 +27,16 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
 
         private void CleanUpCache(object input)
         {
-            while (_cacheDictionary.Count > 0)
+            RemoveMoreThan(0);
+        }
+
+        private void RemoveMoreThan(int maxNumber)
+        {
+            while (_cacheDictionary.Count > maxNumber)
             {
-                var cacheItem = _cacheDictionary.First();
+                var cacheItem = _cacheDictionary.OrderBy(p => p.Value.AddedTime).First();
                 File.Delete(cacheItem.Value.FileName);
-                _cacheDictionary.Remove(cacheItem.Key);
+                _cacheDictionary.Remove(cacheItem.Key, out _);
             }
         }
 
@@ -58,13 +64,8 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
                 info.Create();
             }
             File.WriteAllBytes(fileName, responseBody);
-            _cacheDictionary.Add(url, new CacheItem { FileName = fileName, ContentType = contentType, AddedTime = DateTime.Now });
-            if (_cacheDictionary.Count > _options.MaxImageCount)
-            {
-                var latest = _cacheDictionary.OrderBy(p => p.Value.AddedTime).First();
-                File.Delete(latest.Value.FileName);
-                _cacheDictionary.Remove(latest.Key);
-            }
+            _cacheDictionary.GetOrAdd(url, new CacheItem { FileName = fileName, ContentType = contentType, AddedTime = DateTime.Now });
+            RemoveMoreThan(_options.MaxImageCount);
         }
     }
 }
