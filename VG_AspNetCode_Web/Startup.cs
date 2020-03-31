@@ -8,6 +8,7 @@ using Serilog;
 using System.IO;
 using VG_AspNetCore_Web.Data;
 using VG_AspNetCore_Web.Middleware;
+using VG_AspNetCore_Web.Middleware.CacheImages;
 using VG_AspNetCore_Web.Services;
 
 namespace VG_AspNetCore_Web
@@ -60,9 +61,9 @@ namespace VG_AspNetCore_Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseMiddleware<CacheImagesMiddleware>(new CacheImageOptions { CacheExpirationInMilliseconds = 50000, CachePath = Path.Combine(env.ContentRootPath, "cache"), MaxImageCount = 2 });
             app.UseStaticFiles();
             app.UseNodeModules(env.ContentRootPath);
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
