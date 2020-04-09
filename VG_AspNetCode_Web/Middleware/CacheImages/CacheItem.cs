@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace VG_AspNetCore_Web.Middleware.CacheImages
+﻿namespace VG_AspNetCore_Web.Middleware.CacheImages
 {
     public class CacheItem
     {
-        public string FileName { get; set; }
+        public bool Exist { get; set; }
+        public byte[] Image { get; set; }
         public string ContentType { get; set; }
-        public DateTime AddedTime { get; set; }
     }
 }

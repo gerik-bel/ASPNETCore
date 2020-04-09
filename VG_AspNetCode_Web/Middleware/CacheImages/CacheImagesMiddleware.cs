@@ -23,11 +23,13 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
                 using (var memStream = new MemoryStream())
                 {
                     context.Response.Body = memStream;
-
-                    if (_cacheImages.TryToGetFromCache(ref context, out byte[] response))
+                    var cacheItem = await _cacheImages.TryToGetFromCacheAsync(context.Request.Path);
+                    if (cacheItem.Exist)
                     {
+                        context.Response.Clear();
+                        context.Response.ContentType = cacheItem.ContentType;
                         memStream.Position = 0;
-                        await memStream.WriteAsync(response);
+                        await memStream.WriteAsync(cacheItem.Image);
                     }
                     else
                     {
@@ -36,7 +38,7 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
                         {
                             memStream.Position = 0;
                             var responseBody = memStream.ToArray();
-                            _cacheImages.AddToCache(context.Response.ContentType, context.Request.Path, responseBody);
+                            await _cacheImages.AddToCacheAsync(context.Response.ContentType, context.Request.Path, responseBody);
                         }
                     }
                     memStream.Position = 0;
