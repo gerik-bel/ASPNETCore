@@ -1,6 +1,7 @@
 ﻿@model VG_AspNetCore_Web.Models.Products
 
 <h3>@ViewData["Message"]</h3>
+@await Component.InvokeAsync("BreadcrumbComponent")
 <table class="table table-striped">
     @await Html.PartialAsync("Header", Model)
     <tbody>

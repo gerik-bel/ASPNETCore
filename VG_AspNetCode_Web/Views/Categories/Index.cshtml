@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<VG_AspNetCore_Web.Models.Categories>
 
 <h2>Categories</h2>
+@await Component.InvokeAsync("BreadcrumbComponent")
 @if (Model != null && Model.Any())
 {
     <table class="table table-striped">
@@ -19,6 +20,6 @@ else
 }
 
 @section Footers
-{
+    {
     <p>Categories cannot be edit by user</p>
 }

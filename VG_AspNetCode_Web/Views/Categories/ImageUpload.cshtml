@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Image upload";
 }
+@await Component.InvokeAsync("BreadcrumbComponent")
 <form asp-action="ImageUpload" asp-controller="Categories" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <table class="table table-striped">
@@ -28,7 +29,7 @@
         </table>
 
         <div class="custom-file">
-            <input name="File" type="file" class="custom-file-label" asp-for="File"/>
+            <input name="File" type="file" class="custom-file-label" asp-for="File" />
         </div>
         <span asp-validation-for="File" class="text-danger"></span>
     </div>

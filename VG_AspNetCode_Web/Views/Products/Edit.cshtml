@@ -6,6 +6,7 @@
 </style>
 
 <h3>@ViewData["Message"]</h3>
+@await Component.InvokeAsync("BreadcrumbComponent")
 <form method="post">
     <input asp-for="ProductId" type="hidden" />
     <div>

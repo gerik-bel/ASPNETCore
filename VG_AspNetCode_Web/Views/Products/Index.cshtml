@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<VG_AspNetCore_Web.Models.Products>
 
 <h2>Products</h2>
+@await Component.InvokeAsync("BreadcrumbComponent")
 <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Create">Add new</a>
 @if (Model != null && Model.Any())
 {

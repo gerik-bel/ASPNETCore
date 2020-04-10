@@ -1,0 +1,22 @@
+﻿@using VG_AspNetCore_Web.Components
+@model VG_AspNetCore_Web.Components.BreadcrumbItem
+
+<a asp-controller="Home" asp-action="Index">Home ></a>
+@switch (Model.Mode)
+{
+    case BreadcrumbMode.Edit:
+        {
+            <a asp-controller=@Model.EntityName asp-action="Index">@Model.EntityName ></a>
+            <span>New/Edit</span>
+            break;
+        }
+    case BreadcrumbMode.View:
+        {
+            <a asp-controller=@Model.EntityName asp-action="Index">@Model.EntityName ></a>
+            <span>View</span>
+            break;
+        }
+    default:
+        <span>@Model.EntityName</span>
+        break;
+}
