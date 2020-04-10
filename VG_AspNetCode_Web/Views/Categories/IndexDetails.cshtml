@@ -1,9 +1,17 @@
-﻿@model VG_AspNetCore_Web.Models.Categories
+﻿@using VG_AspNetCore_Web.Helpers
+@model VG_AspNetCore_Web.Models.Categories
 
 <tr>
     <td>@Model.CategoryId</td>
     <td>@Model.CategoryName</td>
     <td>@Model.Description</td>
-    <td><a class="btn btn-outline-primary" asp-action="Image" asp-route-id="@Model.CategoryId">ViewImage</a></td>
+    <td>
+        <div>
+            <a class="btn btn-outline-primary" northwind-id="@Model.CategoryId">ViewImage (tag helper)</a>
+        </div>
+        <div>
+            @Html.NorthwindImageLink(Model.CategoryId, "ViewImage (html helper)")
+        </div>
+    </td>
     <td><a class="btn btn-outline-primary" asp-action="ImageUpload" asp-route-id="@Model.CategoryId">UploadImage</a></td>
 </tr>
