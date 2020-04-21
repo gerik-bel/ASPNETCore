@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using VG_AspNetCore_Web.Models;
 using VG_AspNetCore_Web.Services;
+using VG_AspNetCore_Web.ViewModels;
 
 namespace VG_AspNetCore_Web.Controllers
 {

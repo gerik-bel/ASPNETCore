@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VG_AspNetCore_Web", "VG_AspNetCode_Web\VG_AspNetCore_Web.csproj", "{2A713CCA-7916-49BD-9513-0EA518FB3B89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VG_AspNetCore_Web.UnitTests", "VG_AspNetCore_Web.UnitTests\VG_AspNetCore_Web.UnitTests.csproj", "{2CD690E8-CCC5-4FC5-9948-BFC90464F0F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VG_AspNetCore_Web.UnitTests", "VG_AspNetCore_Web.UnitTests\VG_AspNetCore_Web.UnitTests.csproj", "{2CD690E8-CCC5-4FC5-9948-BFC90464F0F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VG_AspNetCore_Data", "VG_AspNetCore_Data\VG_AspNetCore_Data.csproj", "{D2571842-7703-4D51-9AB6-12608A80B9DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2CD690E8-CCC5-4FC5-9948-BFC90464F0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD690E8-CCC5-4FC5-9948-BFC90464F0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CD690E8-CCC5-4FC5-9948-BFC90464F0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2571842-7703-4D51-9AB6-12608A80B9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2571842-7703-4D51-9AB6-12608A80B9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2571842-7703-4D51-9AB6-12608A80B9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2571842-7703-4D51-9AB6-12608A80B9DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

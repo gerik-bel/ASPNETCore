@@ -1,4 +1,4 @@
-namespace VG_AspNetCore_Web.Models
+namespace VG_AspNetCore_Web.ViewModels
 {
     public class ErrorViewModel
     {

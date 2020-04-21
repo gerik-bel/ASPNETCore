@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VG_AspNetCore_Data\VG_AspNetCore_Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

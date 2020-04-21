@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VG_AspNetCore_Web.Models;
+using VG_AspNetCore_Data.Models;
 
 namespace VG_AspNetCore_Web.Services
 {
