@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Serilog;
 using System.IO;
 using VG_AspNetCore_Data.Data;
@@ -34,7 +35,11 @@ namespace VG_AspNetCore_Web
             services.AddScoped<IProductsService, SqlProductsService>().Configure<SqlProductsOptions>(configureOptions => configureOptions.MaxShownDisplayCount = GetMaxShownDisplayCount());
             services.AddScoped<ICategoriesService, SqlCategories>();
             services.AddScoped<IHomeService, DefaultHomeService>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ReferenceLoopHandling =
+                        ReferenceLoopHandling.Ignore;
+                });
         }
 
         private int GetMaxShownDisplayCount()

@@ -17,37 +17,47 @@ namespace VG_AspNetCore_Web.Middleware.CacheImages
 
         public async Task Invoke(HttpContext context)
         {
-            Stream originalBody = context.Response.Body;
-            try
+            if (context.Request.Path.ToString().StartsWith("/api/"))
             {
-                using (var memStream = new MemoryStream())
-                {
-                    context.Response.Body = memStream;
-                    var cacheItem = await _cacheImages.TryToGetFromCacheAsync(context.Request.Path);
-                    if (cacheItem.Exist)
-                    {
-                        context.Response.Clear();
-                        context.Response.ContentType = cacheItem.ContentType;
-                        memStream.Position = 0;
-                        await memStream.WriteAsync(cacheItem.Image);
-                    }
-                    else
-                    {
-                        await _nextDelegate(context);
-                        if (!string.IsNullOrEmpty(context.Response.ContentType) && context.Response.ContentType.StartsWith("image"))
-                        {
-                            memStream.Position = 0;
-                            var responseBody = memStream.ToArray();
-                            await _cacheImages.AddToCacheAsync(context.Response.ContentType, context.Request.Path, responseBody);
-                        }
-                    }
-                    memStream.Position = 0;
-                    await memStream.CopyToAsync(originalBody);
-                }
+                await _nextDelegate(context);
             }
-            finally
+            else
             {
-                context.Response.Body = originalBody;
+                Stream originalBody = context.Response.Body;
+                try
+                {
+                    using (var memStream = new MemoryStream())
+                    {
+                        context.Response.Body = memStream;
+                        var cacheItem = await _cacheImages.TryToGetFromCacheAsync(context.Request.Path);
+                        if (cacheItem.Exist)
+                        {
+                            context.Response.Clear();
+                            context.Response.ContentType = cacheItem.ContentType;
+                            memStream.Position = 0;
+                            await memStream.WriteAsync(cacheItem.Image);
+                        }
+                        else
+                        {
+                            await _nextDelegate(context);
+                            if (!string.IsNullOrEmpty(context.Response.ContentType) &&
+                                context.Response.ContentType.StartsWith("image"))
+                            {
+                                memStream.Position = 0;
+                                var responseBody = memStream.ToArray();
+                                await _cacheImages.AddToCacheAsync(context.Response.ContentType, context.Request.Path,
+                                    responseBody);
+                            }
+                        }
+
+                        memStream.Position = 0;
+                        await memStream.CopyToAsync(originalBody);
+                    }
+                }
+                finally
+                {
+                    context.Response.Body = originalBody;
+                }
             }
         }
     }
