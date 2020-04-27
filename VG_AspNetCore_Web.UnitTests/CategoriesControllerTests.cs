@@ -16,7 +16,7 @@ namespace VG_AspNetCore_Web.UnitTests
         public async Task Index_ReturnsAViewResult_WithAListOfCategories()
         {
             var mockService = new Mock<ICategoriesService>();
-            mockService.Setup(p => p.GetAllAsync()).ReturnsAsync(GetTestCategories());
+            mockService.Setup(p => p.GetAllAsync(false)).ReturnsAsync(GetTestCategories());
             var controller = new CategoriesController(mockService.Object);
             var result = await controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);

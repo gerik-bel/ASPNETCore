@@ -20,7 +20,7 @@ namespace VG_AspNetCore_Web.UnitTests
         public async Task Index_ReturnsAViewResult_WithAListOfProducts()
         {
             var mockService = new Mock<IProductsService>();
-            mockService.Setup(p => p.GetAllWithIncludesAsync()).ReturnsAsync(GetTestProducts());
+            mockService.Setup(p => p.GetAllAsync(true, true, false)).ReturnsAsync(GetTestProducts());
             var controller = new ProductsController(mockService.Object);
             var result = await controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -33,7 +33,7 @@ namespace VG_AspNetCore_Web.UnitTests
         {
             int testProductId = 0;
             var mockService = new Mock<IProductsService>();
-            mockService.Setup(p => p.GetAsync(testProductId)).ReturnsAsync((Products)null);
+            mockService.Setup(p => p.GetAsync(testProductId, true, true, false)).ReturnsAsync((Products)null);
             var controller = new ProductsController(mockService.Object);
             var result = await controller.Details(testProductId);
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
@@ -45,7 +45,7 @@ namespace VG_AspNetCore_Web.UnitTests
         {
             int testProductId = 1;
             var mockService = new Mock<IProductsService>();
-            mockService.Setup(p => p.GetAsync(testProductId)).ReturnsAsync(GetTestProducts().FirstOrDefault(
+            mockService.Setup(p => p.GetAsync(testProductId, true, true, false)).ReturnsAsync(GetTestProducts().FirstOrDefault(
                     s => s.ProductId == testProductId));
             var controller = new ProductsController(mockService.Object);
             var result = await controller.Edit(testProductId);

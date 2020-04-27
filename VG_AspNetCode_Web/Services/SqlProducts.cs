@@ -27,19 +27,27 @@ namespace VG_AspNetCore_Web.Services
             _maxShownDisplayCount = options.Value.MaxShownDisplayCount;
         }
 
-        public async Task<IEnumerable<Products>> GetAllWithIncludesAsync()
+        private IQueryable<Products> BuildRequest(bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false)
         {
-            IQueryable<Products> products = _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).OrderBy(p => p.ProductId);
-            if (_maxShownDisplayCount != 0)
+            IQueryable<Products> request = _dbContext.Products;
+            if (includeCategory)
             {
-                products = products.Take(_maxShownDisplayCount);
+                request = request.Include(p => p.Category);
             }
-            return await products.ToListAsync();
+            if (includeSupplier)
+            {
+                request = request.Include(p => p.Supplier);
+            }
+            if (includeOrderDetails)
+            {
+                request = request.Include(p => p.OrderDetails);
+            }
+            return request;
         }
 
-        public async Task<IEnumerable<Products>> GetAllAsync()
+        public async Task<IEnumerable<Products>> GetAllAsync(bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false)
         {
-            IQueryable<Products> products = _dbContext.Products.OrderBy(p => p.ProductId);
+            IQueryable<Products> products = BuildRequest(includeCategory, includeSupplier, includeOrderDetails).OrderBy(p => p.ProductId);
             if (_maxShownDisplayCount != 0)
             {
                 products = products.Take(_maxShownDisplayCount);
@@ -63,9 +71,10 @@ namespace VG_AspNetCore_Web.Services
             return categories;
         }
 
-        public async Task<Products> GetAsync(int id)
+        public async Task<Products> GetAsync(int id, bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false)
         {
-            return await _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).FirstOrDefaultAsync(p => p.ProductId == id);
+            IQueryable<Products> products = BuildRequest(includeCategory, includeSupplier, includeOrderDetails);
+            return await products.FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
         public async Task<Products> AddAsync(Products product)

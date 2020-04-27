@@ -6,8 +6,8 @@ namespace VG_AspNetCore_Web.Services
 {
     public interface ICategoriesService
     {
-        Task<IEnumerable<Categories>> GetAllAsync();
-        Task<Categories> GetAsync(int id);
+        Task<IEnumerable<Categories>> GetAllAsync(bool includeProducts = false);
+        Task<Categories> GetAsync(int id, bool includeProducts = false);
         Task<byte[]> GetImageAsync(int id);
         Task UpdateImageAsync(int id, byte[] image);
     }

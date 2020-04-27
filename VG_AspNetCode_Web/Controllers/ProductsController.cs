@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Data.Models;
+using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Web.Services;
 using VG_AspNetCore_Web.ViewModels;
 
@@ -20,13 +20,13 @@ namespace VG_AspNetCore_Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productsServiceService.GetAllWithIncludesAsync();
+            var products = await _productsServiceService.GetAllAsync(includeCategory: true, includeSupplier: true);
             return View(products);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _productsServiceService.GetAsync(id);
+            var model = await _productsServiceService.GetAsync(id, true, true);
             if (model == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -38,7 +38,7 @@ namespace VG_AspNetCore_Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var products = await _productsServiceService.GetAsync(id);
+            var products = await _productsServiceService.GetAsync(id, true, true);
             if (products == null)
             {
                 return RedirectToAction("Index", "Products");

@@ -17,15 +17,30 @@ namespace VG_AspNetCore_Web.Services
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Categories>> GetAllAsync()
+        private IQueryable<Categories> BuildRequest(bool includeProducts = false)
         {
-            return await _dbContext.Categories.OrderBy(p => p.CategoryId).ToListAsync();
+            IQueryable<Categories> request = _dbContext.Categories;
+            if (includeProducts)
+            {
+                request = request.Include(p => p.Products);
+            }
+            return request;
         }
 
-        public async Task<Categories> GetAsync(int id)
+        public async Task<IEnumerable<Categories>> GetAllAsync(bool includeProducts = false)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(p => p.CategoryId == id);
-            category.Picture = CorrectPicture(category.Picture);
+            var request = BuildRequest(includeProducts);
+            return await request.OrderBy(p => p.CategoryId).ToListAsync();
+        }
+
+        public async Task<Categories> GetAsync(int id, bool includeProducts = false)
+        {
+            var request = BuildRequest(includeProducts);
+            var category = await request.FirstOrDefaultAsync(p => p.CategoryId == id);
+            if (category != null)
+            {
+                category.Picture = CorrectPicture(category.Picture);
+            }
             return category;
         }
 

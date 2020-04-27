@@ -7,9 +7,8 @@ namespace VG_AspNetCore_Web.Services
 {
     public interface IProductsService
     {
-        Task<IEnumerable<Products>> GetAllWithIncludesAsync();
-        Task<IEnumerable<Products>> GetAllAsync();
-        Task<Products> GetAsync(int id);
+        Task<IEnumerable<Products>> GetAllAsync(bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false);
+        Task<Products> GetAsync(int id, bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false);
         Task<Products> AddAsync(Products product);
         Task<Products> UpdateAsync(Products product);
         Task<List<SelectListItem>> GetSuppliersAsync();
