@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>VG_AspNetCore_Web JsClient</title>
+</head>
+<body>
+
+    <div>
+        <h2>Categories</h2>
+        <h3>CategoryId: CategoryName: Description:</h3>
+        <ul id="categories" />
+    </div>
+
+    <div>
+        <h2>Products</h2>
+        <h3>ProductId: ProductName: CategoryId: Discontinued: QuantityPerUnit: ReorderLevel: SupplierId: UnitPrice: UnitsInStock: UnitsOnOrder:</h3>
+        <ul id="products" />
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON('api/category')
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('<li>', { text: item.categoryId + "\t" + item.categoryName + "\t" + item.description }).appendTo($('#categories'));
+                    });
+                });
+        });
+
+        $(document).ready(function () {
+            $.getJSON('api/product')
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('<li>', { text: item.productId + "\t" + item.productName + "\t" + item.categoryId + "\t" + item.discontinued + "\t" + item.quantityPerUnit + "\t" + item.reorderLevel + "\t" + item.supplierId + "\t" + item.unitPrice + "\t" + item.unitsInStock + "\t" + item.unitsOnOrder }).appendTo($('#products'));
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

@@ -27,9 +27,19 @@ namespace VG_AspNetCore_Web.Services
             _maxShownDisplayCount = options.Value.MaxShownDisplayCount;
         }
 
-        public async Task<IEnumerable<Products>> GetAllAsync()
+        public async Task<IEnumerable<Products>> GetAllWithIncludesAsync()
         {
             IQueryable<Products> products = _dbContext.Products.Include(p => p.Supplier).Include(p => p.Category).OrderBy(p => p.ProductId);
+            if (_maxShownDisplayCount != 0)
+            {
+                products = products.Take(_maxShownDisplayCount);
+            }
+            return await products.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Products>> GetAllAsync()
+        {
+            IQueryable<Products> products = _dbContext.Products.OrderBy(p => p.ProductId);
             if (_maxShownDisplayCount != 0)
             {
                 products = products.Take(_maxShownDisplayCount);

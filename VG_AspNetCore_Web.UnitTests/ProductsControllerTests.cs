@@ -20,7 +20,7 @@ namespace VG_AspNetCore_Web.UnitTests
         public async Task Index_ReturnsAViewResult_WithAListOfProducts()
         {
             var mockService = new Mock<IProductsService>();
-            mockService.Setup(p => p.GetAllAsync()).ReturnsAsync(GetTestProducts());
+            mockService.Setup(p => p.GetAllWithIncludesAsync()).ReturnsAsync(GetTestProducts());
             var controller = new ProductsController(mockService.Object);
             var result = await controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);

@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\JsClient.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VG_AspNetCore_Data\VG_AspNetCore_Data.csproj" />
   </ItemGroup>
 

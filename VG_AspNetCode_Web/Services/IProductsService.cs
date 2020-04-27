@@ -7,6 +7,7 @@ namespace VG_AspNetCore_Web.Services
 {
     public interface IProductsService
     {
+        Task<IEnumerable<Products>> GetAllWithIncludesAsync();
         Task<IEnumerable<Products>> GetAllAsync();
         Task<Products> GetAsync(int id);
         Task<Products> AddAsync(Products product);

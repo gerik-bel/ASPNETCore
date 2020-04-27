@@ -20,7 +20,7 @@ namespace VG_AspNetCore_Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productsServiceService.GetAllAsync();
+            var products = await _productsServiceService.GetAllWithIncludesAsync();
             return View(products);
         }
 
