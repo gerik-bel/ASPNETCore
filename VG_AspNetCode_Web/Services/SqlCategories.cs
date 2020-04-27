@@ -47,15 +47,24 @@ namespace VG_AspNetCore_Web.Services
         public async Task<byte[]> GetImageAsync(int id)
         {
             var category = await _dbContext.Categories.FirstOrDefaultAsync(p => p.CategoryId == id);
-            var image = CorrectPicture(category.Picture);
-            return image;
+            if (category != null)
+            {
+                var image = CorrectPicture(category.Picture);
+                return image;
+            }
+            return null;
         }
 
-        public async Task UpdateImageAsync(int id, byte[] image)
+        public async Task<bool> UpdateImageAsync(int id, byte[] image)
         {
             var category = await _dbContext.Categories.FirstOrDefaultAsync(p => p.CategoryId == id);
+            if (category == null)
+            {
+                return false;
+            }
             category.Picture = image;
             await _dbContext.SaveChangesAsync();
+            return true;
         }
 
         private static byte[] CorrectPicture(byte[] picture)

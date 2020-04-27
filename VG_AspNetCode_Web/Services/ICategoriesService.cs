@@ -9,6 +9,6 @@ namespace VG_AspNetCore_Web.Services
         Task<IEnumerable<Categories>> GetAllAsync(bool includeProducts = false);
         Task<Categories> GetAsync(int id, bool includeProducts = false);
         Task<byte[]> GetImageAsync(int id);
-        Task UpdateImageAsync(int id, byte[] image);
+        Task<bool> UpdateImageAsync(int id, byte[] image);
     }
 }

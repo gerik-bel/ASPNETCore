@@ -11,6 +11,7 @@ namespace VG_AspNetCore_Web.Services
         Task<Products> GetAsync(int id, bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false);
         Task<Products> AddAsync(Products product);
         Task<Products> UpdateAsync(Products product);
+        Task DeleteAsync(Products product);
         Task<List<SelectListItem>> GetSuppliersAsync();
         Task<List<SelectListItem>> GetCategoriesAsync();
     }

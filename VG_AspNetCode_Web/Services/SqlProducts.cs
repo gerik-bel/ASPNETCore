@@ -90,6 +90,12 @@ namespace VG_AspNetCore_Web.Services
             await _dbContext.SaveChangesAsync();
             return product;
         }
+
+        public async Task DeleteAsync(Products product)
+        {
+            _dbContext.Remove(product);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
 
