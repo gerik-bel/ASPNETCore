@@ -1,0 +1,999 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "VG_AspNetCore_Web",
+    "version": "v1"
+  },
+  "paths": {
+    "/images/{id}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Image",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Categories/Image/{id}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Image",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get list of categories",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "includeProducts",
+            "description": "Include category products into result - true/false",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get category by identifier",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "includeProducts",
+            "description": "Include category products into result - true/false",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Category/{id}/image": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get category image contetnt by identifier",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Update category image content by identifier",
+        "operationId": "Post",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "formData",
+            "name": "ContentType",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "ContentDisposition",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "Headers",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "Length",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "formData",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "FileName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get list of products",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "includeCategory",
+            "description": "Include product category into result - true/false",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "in": "query",
+            "name": "includeSupplier",
+            "description": "Include product supplier into result - true/false",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "in": "query",
+            "name": "includeOrderDetails",
+            "description": "Include product order details into result - true/false",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create new product",
+        "operationId": "Post",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New product data",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get product by identifier",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Product identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "includeCategory",
+            "description": "Include product category into result - true/false",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "in": "query",
+            "name": "includeSupplier",
+            "description": "Include product supplier into result - true/false",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "in": "query",
+            "name": "includeOrderDetails",
+            "description": "Include product order details into result - true/false",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update product fully",
+        "operationId": "Put",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Product identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product data",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update product partially",
+        "operationId": "Patch",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Product identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product data",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete product",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Product identifier",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Categories": {
+      "required": [
+        "CategoryName"
+      ],
+      "type": "object",
+      "properties": {
+        "CategoryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CategoryName": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Picture": {
+          "format": "byte",
+          "type": "string"
+        },
+        "Products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Products"
+          }
+        }
+      }
+    },
+    "Suppliers": {
+      "required": [
+        "CompanyName"
+      ],
+      "type": "object",
+      "properties": {
+        "SupplierId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CompanyName": {
+          "maxLength": 40,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ContactName": {
+          "maxLength": 30,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ContactTitle": {
+          "maxLength": 30,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Address": {
+          "maxLength": 60,
+          "minLength": 0,
+          "type": "string"
+        },
+        "City": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Region": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "PostalCode": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Country": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Phone": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Fax": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "HomePage": {
+          "type": "string"
+        },
+        "Products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Products"
+          }
+        }
+      }
+    },
+    "CustomerDemographics": {
+      "type": "object",
+      "properties": {
+        "CustomerTypeId": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "CustomerDesc": {
+          "type": "string"
+        },
+        "CustomerCustomerDemo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerCustomerDemo"
+          }
+        }
+      }
+    },
+    "CustomerCustomerDemo": {
+      "type": "object",
+      "properties": {
+        "CustomerId": {
+          "maxLength": 5,
+          "minLength": 0,
+          "type": "string"
+        },
+        "CustomerTypeId": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Customer": {
+          "$ref": "#/definitions/Customers"
+        },
+        "CustomerType": {
+          "$ref": "#/definitions/CustomerDemographics"
+        }
+      }
+    },
+    "Customers": {
+      "required": [
+        "CompanyName"
+      ],
+      "type": "object",
+      "properties": {
+        "CustomerId": {
+          "maxLength": 5,
+          "minLength": 0,
+          "type": "string"
+        },
+        "CompanyName": {
+          "maxLength": 40,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ContactName": {
+          "maxLength": 30,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ContactTitle": {
+          "maxLength": 30,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Address": {
+          "maxLength": 60,
+          "minLength": 0,
+          "type": "string"
+        },
+        "City": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Region": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "PostalCode": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Country": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Phone": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Fax": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "CustomerCustomerDemo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerCustomerDemo"
+          }
+        },
+        "Orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Orders"
+          }
+        }
+      }
+    },
+    "Region": {
+      "required": [
+        "RegionDescription"
+      ],
+      "type": "object",
+      "properties": {
+        "RegionId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "RegionDescription": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Territories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Territories"
+          }
+        }
+      }
+    },
+    "Territories": {
+      "required": [
+        "TerritoryDescription"
+      ],
+      "type": "object",
+      "properties": {
+        "TerritoryId": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "TerritoryDescription": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "RegionId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Region": {
+          "$ref": "#/definitions/Region"
+        },
+        "EmployeeTerritories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmployeeTerritories"
+          }
+        }
+      }
+    },
+    "EmployeeTerritories": {
+      "type": "object",
+      "properties": {
+        "EmployeeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "TerritoryId": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Employee": {
+          "$ref": "#/definitions/Employees"
+        },
+        "Territory": {
+          "$ref": "#/definitions/Territories"
+        }
+      }
+    },
+    "Employees": {
+      "required": [
+        "FirstName",
+        "LastName"
+      ],
+      "type": "object",
+      "properties": {
+        "EmployeeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "LastName": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "FirstName": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Title": {
+          "maxLength": 30,
+          "minLength": 0,
+          "type": "string"
+        },
+        "TitleOfCourtesy": {
+          "maxLength": 25,
+          "minLength": 0,
+          "type": "string"
+        },
+        "BirthDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "HireDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Address": {
+          "maxLength": 60,
+          "minLength": 0,
+          "type": "string"
+        },
+        "City": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Region": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "PostalCode": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Country": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "HomePhone": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Extension": {
+          "maxLength": 4,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Photo": {
+          "format": "byte",
+          "type": "string"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "ReportsTo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "PhotoPath": {
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ReportsToNavigation": {
+          "$ref": "#/definitions/Employees"
+        },
+        "EmployeeTerritories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmployeeTerritories"
+          }
+        },
+        "InverseReportsToNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Employees"
+          }
+        },
+        "Orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Orders"
+          }
+        }
+      }
+    },
+    "Shippers": {
+      "required": [
+        "CompanyName"
+      ],
+      "type": "object",
+      "properties": {
+        "ShipperId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CompanyName": {
+          "maxLength": 40,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Phone": {
+          "maxLength": 24,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Orders"
+          }
+        }
+      }
+    },
+    "Orders": {
+      "type": "object",
+      "properties": {
+        "OrderId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CustomerId": {
+          "maxLength": 5,
+          "minLength": 0,
+          "type": "string"
+        },
+        "EmployeeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrderDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "RequiredDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "ShippedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "ShipVia": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Freight": {
+          "format": "double",
+          "type": "number"
+        },
+        "ShipName": {
+          "maxLength": 40,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ShipAddress": {
+          "maxLength": 60,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ShipCity": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ShipRegion": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ShipPostalCode": {
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "ShipCountry": {
+          "maxLength": 15,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Customer": {
+          "$ref": "#/definitions/Customers"
+        },
+        "Employee": {
+          "$ref": "#/definitions/Employees"
+        },
+        "ShipViaNavigation": {
+          "$ref": "#/definitions/Shippers"
+        },
+        "OrderDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderDetails"
+          }
+        }
+      }
+    },
+    "OrderDetails": {
+      "type": "object",
+      "properties": {
+        "OrderId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ProductId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "UnitPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "Quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Discount": {
+          "format": "float",
+          "type": "number"
+        },
+        "Order": {
+          "$ref": "#/definitions/Orders"
+        },
+        "Product": {
+          "$ref": "#/definitions/Products"
+        }
+      }
+    },
+    "Products": {
+      "required": [
+        "ProductName"
+      ],
+      "type": "object",
+      "properties": {
+        "ProductId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ProductName": {
+          "maxLength": 40,
+          "minLength": 0,
+          "type": "string"
+        },
+        "SupplierId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CategoryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "QuantityPerUnit": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "UnitPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "UnitsInStock": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "UnitsOnOrder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ReorderLevel": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Discontinued": {
+          "type": "boolean"
+        },
+        "Category": {
+          "$ref": "#/definitions/Categories"
+        },
+        "Supplier": {
+          "$ref": "#/definitions/Suppliers"
+        },
+        "OrderDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderDetails"
+          }
+        }
+      }
+    }
+  }
+}
