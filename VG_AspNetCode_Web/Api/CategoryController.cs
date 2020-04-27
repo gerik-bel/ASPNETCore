@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System;
@@ -11,6 +10,9 @@ using VG_AspNetCore_Web.Services;
 
 namespace VG_AspNetCore_Web.Api
 {
+    /// <summary>
+    /// Category controller
+    /// </summary>
     [Route("api/[controller]")]
     [ValidateModel]
     public class CategoryController : Controller
@@ -18,11 +20,20 @@ namespace VG_AspNetCore_Web.Api
         private const string DefImageType = "image/bmp";
         private readonly ICategoriesService _categoriesService;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="categoriesService">Instance of CategoriesService</param>
         public CategoryController(ICategoriesService categoriesService)
         {
             _categoriesService = categoriesService;
         }
 
+        /// <summary>
+        /// Get list of categories
+        /// </summary>
+        /// <param name="includeProducts">Include category products into result - true/false</param>
+        /// <returns></returns>
         [HttpGet("")]
         public async Task<IActionResult> Get(bool includeProducts = false)
         {
@@ -30,6 +41,12 @@ namespace VG_AspNetCore_Web.Api
             return Ok(categories);
         }
 
+        /// <summary>
+        /// Get category by identifier
+        /// </summary>
+        /// <param name="id">Category identifier</param>
+        /// <param name="includeProducts">Include category products into result - true/false</param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "CategoryGet")]
         public async Task<IActionResult> Get(int id, bool includeProducts = false)
         {
@@ -49,6 +66,11 @@ namespace VG_AspNetCore_Web.Api
             return BadRequest();
         }
 
+        /// <summary>
+        /// Get category image contetnt by identifier
+        /// </summary>
+        /// <param name="id">Category identifier</param>
+        /// <returns></returns>
         [HttpGet("{id}/image", Name = "CategoryImageGet")]
         public async Task<IActionResult> Get(int id)
         {
@@ -60,6 +82,12 @@ namespace VG_AspNetCore_Web.Api
             return NotFound($"Image for category witn id-{id} was not found");
         }
 
+        /// <summary>
+        /// Update category image content by identifier
+        /// </summary>
+        /// <param name="id">Category identifier</param>
+        /// <param name="file">Uploaded file content</param>
+        /// <returns></returns>
         [HttpPost("{id}/image", Name = "CategoryImageUpload")]
         public async Task<IActionResult> Post(int id, [FromForm]IFormFile file)
         {

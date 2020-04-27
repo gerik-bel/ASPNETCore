@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VG_AspNetCore_Web</name>
+    </assembly>
+    <members>
+        <member name="T:VG_AspNetCore_Web.Api.CategoryController">
+            <summary>
+            Category controller
+            </summary>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.CategoryController.#ctor(VG_AspNetCore_Web.Services.ICategoriesService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="categoriesService">Instance of CategoriesService</param>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.CategoryController.Get(System.Boolean)">
+            <summary>
+            Get list of categories
+            </summary>
+            <param name="includeProducts">Include category products into result - true/false</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.CategoryController.Get(System.Int32,System.Boolean)">
+            <summary>
+            Get category by identifier
+            </summary>
+            <param name="id">Category identifier</param>
+            <param name="includeProducts">Include category products into result - true/false</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.CategoryController.Get(System.Int32)">
+            <summary>
+            Get category image contetnt by identifier
+            </summary>
+            <param name="id">Category identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.CategoryController.Post(System.Int32,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Update category image content by identifier
+            </summary>
+            <param name="id">Category identifier</param>
+            <param name="file">Uploaded file content</param>
+            <returns></returns>
+        </member>
+        <member name="T:VG_AspNetCore_Web.Api.ProductController">
+            <summary>
+            Product controller
+            </summary>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.#ctor(VG_AspNetCore_Web.Services.IProductsService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="productsService">Instance of ProductsService</param>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Get(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Get list of products
+            </summary>
+            <param name="includeCategory">Include product category into result - true/false</param>
+            <param name="includeSupplier">Include product supplier into result - true/false</param>
+            <param name="includeOrderDetails">Include product order details into result - true/false</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Get(System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Get product by identifier
+            </summary>
+            <param name="id">Product identifier</param>
+            <param name="includeCategory">Include product category into result - true/false</param>
+            <param name="includeSupplier">Include product supplier into result - true/false</param>
+            <param name="includeOrderDetails">Include product order details into result - true/false</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Post(VG_AspNetCore_Data.Models.Products)">
+            <summary>
+            Create new product
+            </summary>
+            <param name="model">New product data</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Put(System.Int32,VG_AspNetCore_Data.Models.Products)">
+            <summary>
+            Update product fully
+            </summary>
+            <param name="id">Product identifier</param>
+            <param name="model">Product data</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Patch(System.Int32,VG_AspNetCore_Data.Models.Products)">
+            <summary>
+            Update product partially
+            </summary>
+            <param name="id">Product identifier</param>
+            <param name="model">Product data</param>
+            <returns></returns>
+        </member>
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Delete(System.Int32)">
+            <summary>
+            Delete product
+            </summary>
+            <param name="id">Product identifier</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

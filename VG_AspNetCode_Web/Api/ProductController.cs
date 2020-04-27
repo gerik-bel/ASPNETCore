@@ -8,17 +8,31 @@ using VG_AspNetCore_Web.Services;
 
 namespace VG_AspNetCore_Web.Api
 {
+    /// <summary>
+    /// Product controller
+    /// </summary>
     [Route("api/[controller]")]
     [ValidateModel]
     public class ProductController : Controller
     {
         private readonly IProductsService _productsService;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="productsService">Instance of ProductsService</param>
         public ProductController(IProductsService productsService)
         {
             _productsService = productsService;
         }
 
+        /// <summary>
+        /// Get list of products
+        /// </summary>
+        /// <param name="includeCategory">Include product category into result - true/false</param>
+        /// <param name="includeSupplier">Include product supplier into result - true/false</param>
+        /// <param name="includeOrderDetails">Include product order details into result - true/false</param>
+        /// <returns></returns>
         [HttpGet("")]
         public async Task<IActionResult> Get(bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false)
         {
@@ -26,7 +40,14 @@ namespace VG_AspNetCore_Web.Api
             return Ok(products);
         }
 
-
+        /// <summary>
+        /// Get product by identifier
+        /// </summary>
+        /// <param name="id">Product identifier</param>
+        /// <param name="includeCategory">Include product category into result - true/false</param>
+        /// <param name="includeSupplier">Include product supplier into result - true/false</param>
+        /// <param name="includeOrderDetails">Include product order details into result - true/false</param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "ProductGet")]
         public async Task<IActionResult> Get(int id, bool includeCategory = false, bool includeSupplier = false, bool includeOrderDetails = false)
         {
@@ -46,6 +67,11 @@ namespace VG_AspNetCore_Web.Api
             return BadRequest();
         }
 
+        /// <summary>
+        /// Create new product
+        /// </summary>
+        /// <param name="model">New product data</param>
+        /// <returns></returns>
         [HttpPost("", Name = "ProductPost")]
         public async Task<IActionResult> Post([FromBody]Products model)
         {
@@ -61,6 +87,12 @@ namespace VG_AspNetCore_Web.Api
             return BadRequest();
         }
 
+        /// <summary>
+        /// Update product fully
+        /// </summary>
+        /// <param name="id">Product identifier</param>
+        /// <param name="model">Product data</param>
+        /// <returns></returns>
         [HttpPut("{id}", Name = "ProductPut")]
         public async Task<IActionResult> Put(int id, [FromBody] Products model)
         {
@@ -90,6 +122,12 @@ namespace VG_AspNetCore_Web.Api
             return BadRequest("Could not update product");
         }
 
+        /// <summary>
+        /// Update product partially
+        /// </summary>
+        /// <param name="id">Product identifier</param>
+        /// <param name="model">Product data</param>
+        /// <returns></returns>
         [HttpPatch("{id}", Name = "ProductPatch")]
         public async Task<IActionResult> Patch(int id, [FromBody] Products model)
         {
@@ -119,7 +157,11 @@ namespace VG_AspNetCore_Web.Api
             return BadRequest("Could not update product");
         }
 
-
+        /// <summary>
+        /// Delete product
+        /// </summary>
+        /// <param name="id">Product identifier</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
