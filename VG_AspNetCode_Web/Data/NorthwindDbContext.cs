@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VG_AspNetCore_Web.Models;
 
 namespace VG_AspNetCore_Web.Data
 {
-    public partial class NorthwindDbContext : DbContext
+    public partial class NorthwindDbContext : IdentityDbContext
     {
         public NorthwindDbContext()
         {
@@ -30,6 +31,7 @@ namespace VG_AspNetCore_Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasIndex(e => e.CategoryName)

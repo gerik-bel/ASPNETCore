@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,7 @@ namespace VG_AspNetCore_Web
                 c.CustomOperationIds(d => (d.ActionDescriptor as ControllerActionDescriptor)?.ActionName);
                 c.IncludeXmlComments(Path.Combine(HostingEnvironment.ContentRootPath, "VG_AspNetCore_Web.xml"));
             });
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<NorthwindDbContext>();
         }
 
         private int GetMaxShownDisplayCount()
@@ -83,6 +85,8 @@ namespace VG_AspNetCore_Web
             app.UseMiddleware<CacheImagesMiddleware>(new CacheImageOptions { CacheExpirationInMilliseconds = 50000, CachePath = Path.Combine(env.ContentRootPath, "cache"), MaxImageCount = 2 });
             app.UseStaticFiles();
             app.UseNodeModules(env.ContentRootPath);
+
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
