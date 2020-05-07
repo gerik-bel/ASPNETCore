@@ -75,14 +75,14 @@
             <param name="includeOrderDetails">Include product order details into result - true/false</param>
             <returns></returns>
         </member>
-        <member name="M:VG_AspNetCore_Web.Api.ProductController.Post(VG_AspNetCore_Data.Models.Products)">
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Post(VG_AspNetCore_Web.Models.Products)">
             <summary>
             Create new product
             </summary>
             <param name="model">New product data</param>
             <returns></returns>
         </member>
-        <member name="M:VG_AspNetCore_Web.Api.ProductController.Put(System.Int32,VG_AspNetCore_Data.Models.Products)">
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Put(System.Int32,VG_AspNetCore_Web.Models.Products)">
             <summary>
             Update product fully
             </summary>
@@ -90,7 +90,7 @@
             <param name="model">Product data</param>
             <returns></returns>
         </member>
-        <member name="M:VG_AspNetCore_Web.Api.ProductController.Patch(System.Int32,VG_AspNetCore_Data.Models.Products)">
+        <member name="M:VG_AspNetCore_Web.Api.ProductController.Patch(System.Int32,VG_AspNetCore_Web.Models.Products)">
             <summary>
             Update product partially
             </summary>

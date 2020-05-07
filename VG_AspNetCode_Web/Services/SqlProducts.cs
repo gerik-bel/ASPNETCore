@@ -4,8 +4,8 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VG_AspNetCore_Data.Data;
-using VG_AspNetCore_Data.Models;
+using VG_AspNetCore_Web.Data;
+using VG_AspNetCore_Web.Models;
 
 
 namespace VG_AspNetCore_Web.Services

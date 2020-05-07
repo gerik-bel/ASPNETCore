@@ -4,8 +4,8 @@ using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using VG_AspNetCore_Data.Models;
 using VG_AspNetCore_Web.ActionFilters;
+using VG_AspNetCore_Web.Models;
 using VG_AspNetCore_Web.Services;
 
 namespace VG_AspNetCore_Web.Api

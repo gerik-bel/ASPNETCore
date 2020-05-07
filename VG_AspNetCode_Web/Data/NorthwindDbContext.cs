@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VG_AspNetCore_Data.Models;
+using VG_AspNetCore_Web.Models;
 
-namespace VG_AspNetCore_Data.Data
+namespace VG_AspNetCore_Web.Data
 {
     public partial class NorthwindDbContext : DbContext
     {
