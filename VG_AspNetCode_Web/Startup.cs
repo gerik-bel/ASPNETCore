@@ -12,7 +12,6 @@ using Serilog;
 using System.IO;
 using VG_AspNetCore_Web.Data;
 using VG_AspNetCore_Web.Middleware;
-using VG_AspNetCore_Web.Middleware.CacheImages;
 using VG_AspNetCore_Web.Services;
 
 namespace VG_AspNetCore_Web
@@ -51,7 +50,8 @@ namespace VG_AspNetCore_Web
                 c.CustomOperationIds(d => (d.ActionDescriptor as ControllerActionDescriptor)?.ActionName);
                 c.IncludeXmlComments(Path.Combine(HostingEnvironment.ContentRootPath, "VG_AspNetCore_Web.xml"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<NorthwindDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.Password.RequireNonAlphanumeric = false).AddDefaultTokenProviders()
+                .AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
         }
 
         private int GetMaxShownDisplayCount()
@@ -82,7 +82,7 @@ namespace VG_AspNetCore_Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseMiddleware<CacheImagesMiddleware>(new CacheImageOptions { CacheExpirationInMilliseconds = 50000, CachePath = Path.Combine(env.ContentRootPath, "cache"), MaxImageCount = 2 });
+            //app.UseMiddleware<CacheImagesMiddleware>(new CacheImageOptions { CacheExpirationInMilliseconds = 50000, CachePath = Path.Combine(env.ContentRootPath, "cache"), MaxImageCount = 2 });
             app.UseStaticFiles();
             app.UseNodeModules(env.ContentRootPath);
 

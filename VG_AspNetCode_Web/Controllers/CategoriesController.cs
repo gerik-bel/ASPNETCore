@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using VG_AspNetCore_Web.ActionFilters;
 using VG_AspNetCore_Web.Services;
 using VG_AspNetCore_Web.ViewModels;
 
 namespace VG_AspNetCore_Web.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly string _permittedExtension = ".bmp";
