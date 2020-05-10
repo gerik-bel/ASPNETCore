@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -50,8 +51,13 @@ namespace VG_AspNetCore_Web
                 c.CustomOperationIds(d => (d.ActionDescriptor as ControllerActionDescriptor)?.ActionName);
                 c.IncludeXmlComments(Path.Combine(HostingEnvironment.ContentRootPath, "VG_AspNetCore_Web.xml"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.Password.RequireNonAlphanumeric = false).AddDefaultTokenProviders()
-                .AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
+            services.AddTransient<IEmailSender, EmailService>();
         }
 
         private int GetMaxShownDisplayCount()
