@@ -1,0 +1,14 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+
+<h2>Users</h2>
+@if (Model != null && Model.Any())
+{
+    @foreach (var user in @Model)
+    {
+        <div>@user.UserName; @user.Email; @user.EmailConfirmed</div>
+    }
+}
+else
+{
+    <h3>There are no Users</h3>
+}

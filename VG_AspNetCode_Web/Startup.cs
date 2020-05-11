@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -44,6 +45,7 @@ namespace VG_AspNetCore_Web
             services.AddScoped<IProductsService, SqlProductsService>().Configure<SqlProductsOptions>(configureOptions => configureOptions.MaxShownDisplayCount = GetMaxShownDisplayCount());
             services.AddScoped<ICategoriesService, SqlCategories>();
             services.AddScoped<IHomeService, DefaultHomeService>();
+            services.AddScoped<IdentityDbContext, NorthwindDbContext>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -54,8 +56,8 @@ namespace VG_AspNetCore_Web
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
                     options.Password.RequireNonAlphanumeric = false;
-                    options.SignIn.RequireConfirmedEmail = true;
-                }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
+                    options.SignIn.RequireConfirmedEmail = false;
+                }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>().AddRoles<IdentityRole>();
             services.AddTransient<IEmailSender, EmailService>();
 
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme).AddAzureAD(options =>
@@ -93,10 +95,12 @@ namespace VG_AspNetCore_Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             Log.Information("Configure called");
             Log.Information($"Current configuration:\n{GetSectionContent(Configuration)}");
+            NorthwindDbInitializer.SeedRoles(roleManager);
+            NorthwindDbInitializer.SeedUsers(userManager);
             app.UseSwagger(o => o.SerializeAsV2 = true);
             app.UseSwaggerUI(c =>
             {
