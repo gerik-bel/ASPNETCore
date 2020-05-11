@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +44,31 @@ namespace VG_AspNetCore_Web
             services.AddScoped<IProductsService, SqlProductsService>().Configure<SqlProductsOptions>(configureOptions => configureOptions.MaxShownDisplayCount = GetMaxShownDisplayCount());
             services.AddScoped<ICategoriesService, SqlCategories>();
             services.AddScoped<IHomeService, DefaultHomeService>();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.SignIn.RequireConfirmedEmail = true;
+                }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
+            services.AddTransient<IEmailSender, EmailService>();
+
+            services.AddAuthentication(AzureADDefaults.AuthenticationScheme).AddAzureAD(options =>
+            {
+                Configuration.Bind("AzureAd", options);
+                options.CookieSchemeName = IdentityConstants.ExternalScheme;
+            });
+
+            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            {
+                options.Authority = options.Authority + "/v2.0/";
+
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt =>
                 {
                     opt.SerializerSettings.ReferenceLoopHandling =
@@ -51,13 +80,6 @@ namespace VG_AspNetCore_Web
                 c.CustomOperationIds(d => (d.ActionDescriptor as ControllerActionDescriptor)?.ActionName);
                 c.IncludeXmlComments(Path.Combine(HostingEnvironment.ContentRootPath, "VG_AspNetCore_Web.xml"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.SignIn.RequireConfirmedEmail = true;
-            })
-            .AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>();
-            services.AddTransient<IEmailSender, EmailService>();
         }
 
         private int GetMaxShownDisplayCount()
