@@ -82,6 +82,11 @@ namespace VG_AspNetCore_Web
                 c.CustomOperationIds(d => (d.ActionDescriptor as ControllerActionDescriptor)?.ActionName);
                 c.IncludeXmlComments(Path.Combine(HostingEnvironment.ContentRootPath, "VG_AspNetCore_Web.xml"));
             });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                    policy => policy.RequireRole("Administrator"));
+            });
         }
 
         private int GetMaxShownDisplayCount()

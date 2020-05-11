@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace VG_AspNetCore_Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class UsersController : Controller
     {
         private readonly IdentityDbContext _context;
