@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1062
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VG_AspNetCore_Web", "VG_AspNetCode_Web\VG_AspNetCore_Web.csproj", "{2A713CCA-7916-49BD-9513-0EA518FB3B89}"
 EndProject

@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using Serilog;
 using System.IO;
 using VG_AspNetCore_Web.Data;
@@ -25,9 +24,9 @@ namespace VG_AspNetCore_Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment HostingEnvironment { get; }
+        public IWebHostEnvironment HostingEnvironment { get; }
 
-        public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration)
+        public Startup(IWebHostEnvironment hostingEnvironment, IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile(Path.Combine(hostingEnvironment.ContentRootPath, "Logs", "VG_AspNetCore_Web-{Date}.txt"))
@@ -71,11 +70,6 @@ namespace VG_AspNetCore_Web
                 options.Authority = options.Authority + "/v2.0/";
 
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt =>
-                {
-                    opt.SerializerSettings.ReferenceLoopHandling =
-                        ReferenceLoopHandling.Ignore;
-                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VG_AspNetCore_Web", Version = "v1" });
@@ -87,6 +81,8 @@ namespace VG_AspNetCore_Web
                 options.AddPolicy("RequireAdministratorRole",
                     policy => policy.RequireRole("Administrator"));
             });
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddRazorPages();
         }
 
         private int GetMaxShownDisplayCount()
@@ -100,7 +96,7 @@ namespace VG_AspNetCore_Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             Log.Information("Configure called");
             Log.Information($"Current configuration:\n{GetSectionContent(Configuration)}");
@@ -120,15 +116,17 @@ namespace VG_AspNetCore_Web
                 app.UseExceptionHandler("/Home/Error");
             }
             //app.UseMiddleware<CacheImagesMiddleware>(new CacheImageOptions { CacheExpirationInMilliseconds = 50000, CachePath = Path.Combine(env.ContentRootPath, "cache"), MaxImageCount = 2 });
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseNodeModules(env.ContentRootPath);
+            app.UseRouting();
 
             app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
 
