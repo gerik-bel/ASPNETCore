@@ -12,7 +12,7 @@ namespace VG_AspNetCore_Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
+            return WebHost.CreateDefaultBuilder(args).UseIISIntegration()
                 .UseStartup<Startup>();
         }
     }
