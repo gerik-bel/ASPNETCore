@@ -9,6 +9,11 @@
     <DocumentationFile>C:\!Work\Learn\EPAM\ASP.NET Core\Apps\ASPNETCore\VG_AspNetCode_Web\VG_AspNetCore_Web.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefaultItemExcludes>$([System.String]::Copy($(DefaultItemExcludes)).Replace(';**\node_modules\**',''))</DefaultItemExcludes>
+    <DefaultItemExcludes>$([System.String]::Copy($(DefaultItemExcludes)).Replace(';node_modules\**',''))</DefaultItemExcludes>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
@@ -35,4 +40,8 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
+
+
+
+
 </Project>

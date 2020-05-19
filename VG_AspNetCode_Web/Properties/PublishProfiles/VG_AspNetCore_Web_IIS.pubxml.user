@@ -8,14 +8,4 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
   </PropertyGroup>
-  <ItemGroup>
-    <DestinationConnectionStrings Include="DefaultConnection">
-      <Value>Server=EPBYBREW0095\\SQLEXPRESS%3bDatabase=Northwind%3bPersist Security Info=True%3bUser ID=VG_AspNetCore_Web_Admin%3bPassword=VG_AspNetCore_Admin</Value>
-    </DestinationConnectionStrings>
-  </ItemGroup>
-  <ItemGroup>
-    <EFMigrations Include="VG_AspNetCore_Web.Data.NorthwindDbContext">
-      <Value>Server=EPBYBREW0095\\SQLEXPRESS%3bDatabase=Northwind%3bPersist Security Info=True%3bUser ID=VG_AspNetCore_Web_Admin%3bPassword=VG_AspNetCore_Admin</Value>
-    </EFMigrations>
-  </ItemGroup>
 </Project>
