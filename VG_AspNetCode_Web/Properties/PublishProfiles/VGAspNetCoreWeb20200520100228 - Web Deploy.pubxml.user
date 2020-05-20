@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAs/mkY1Zqw0uwJIqyGYXolQAAAAACAAAAAAADZgAAwAAAABAAAADjBD164V+vtBbYLq+6AMQvAAAAAASAAACgAAAAEAAAAMoECe5jLjtolcVHZ78xHSiAAAAArkGxTxVpzoumTg1HvLQ4gEN8FRJ2EOPaoQCKVJ0KD+jfkE5vORmLwl1ZuWN/2fpmt04mTzSYl3y3dAOqG600ij6UtDuL/V9Cbmqg3oiDzZDhaWdKFS3UhS6slPStezshUH80w1exRr4+PNhDPGnWc1jK5dLgqtWqacLrkLrlzGQUAAAAHFNYMpu6Q3GwV1PwW7Tx3q9ekDM=</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:vgaspnetcoreweb20200520100228dbserver.database.windows.net,1433%3bInitial Catalog=Northwind%3bUser Id=Vladimir_Gerasimov%40vgaspnetcoreweb20200520100228dbserver%3bPassword=QWE!%40#qwe123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="VG_AspNetCore_Web.Data.NorthwindDbContext">
+      <Value>Data Source=tcp:vgaspnetcoreweb20200520100228dbserver.database.windows.net,1433%3bInitial Catalog=Northwind%3bUser Id=Vladimir_Gerasimov%40vgaspnetcoreweb20200520100228dbserver%3bPassword=QWE!%40#qwe123</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
