@@ -55,7 +55,7 @@ namespace VG_AspNetCore_Web
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
                     options.Password.RequireNonAlphanumeric = false;
-                    options.SignIn.RequireConfirmedEmail = true;
+                    options.SignIn.RequireConfirmedEmail = false;
                 }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<NorthwindDbContext>().AddRoles<IdentityRole>();
             services.AddTransient<IEmailSender, EmailService>();
 
