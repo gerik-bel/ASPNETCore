@@ -82,7 +82,7 @@ namespace VG_AspNetCore_Web
                     policy => policy.RequireRole("Administrator"));
             });
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         private int GetMaxShownDisplayCount()
